@@ -1,2 +1,45 @@
 @import "tailwindcss";
 
+@import "tailwindcss";
+
+/* Default Light Theme */
+:root {
+  --bg-color: #f3f4f6; /* Tailwind bg-gray-100 */
+  --text-color: #1f2937; /* Tailwind text-gray-900 */
+  --form-bg: #DEDEDE54; /* Tailwind bg-white */
+  --input-bg: #d8d8d8f7; /* Tailwind input background */
+  --input-text: #000000;
+  --button-bg: #204580ff; /* Tailwind bg-blue-500 */
+  --button-bg-hover: #4067a7ff; /* Tailwind bg-blue-500 */
+  --theme-bg: #050505c7; /* Tailwind bg-blue-500 */
+  --button-text: #ffffff;
+  --emoji-color: #1b1b1bff;
+  --background-gradient: linear-gradient(135deg, #C6C6C6FF, #ffffff);
+}
+
+/* Dark Theme */
+.dark {
+  --bg-color: #232323ff; /* Tailwind bg-zinc-900 */
+  --text-color: #e5e7eb; /* Tailwind text-gray-200 */
+  --form-bg: #3030304f; /* Slightly lighter dark bg */
+  --input-bg: #272626d0; /* Darker input */
+  --input-text: #e5e7eb;
+  --button-bg: #204580ff; /* Tailwind bg-blue-500 */
+  --theme-bg: #eaeaeae4; /* Tailwind bg-blue-500 */
+  --button-text: #ffffff;
+  --emoji-color: #ecececff;
+  --background-gradient: linear-gradient(135deg, #353535FF, #080808FF);
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.input-style {
+  @apply w-full p-2 border rounded-lg bg-[var(--input-bg)] text-[var(--input-text)];
+}
+
+.btn-primary {
+  @apply bg-[var(--button-bg)] text-white font-semibold p-2 rounded-lg hover:bg-[var(--button-bg-hover)];
+}

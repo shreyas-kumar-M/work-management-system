@@ -1,33 +1,64 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
+
+import AdminDashboard from "../pages/AdminDashboard";
+import EmployeeDashboard from "../pages/EmployeeDashboard";
+import Login from "../pages/Login";
+import ManagerDashboard from "../pages/ManagerDashboard";
+import ProtectedRoute from "./ProtectedRoute";
+import EmployeeForm from "../pages/EmployeeForm"
+import Client from "../pages/Client";
+import Project from "../pages/ProjectCreation";
+import ModuleCreation from "../pages/ModuleCreation";
+import WorkAssign from "../pages/WorkAssign";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div className="bg-zinc-800 ">
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo grid items-center mx-auto py-2" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react grid items-center mx-auto py-2" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Router>
+      <Routes>
+        {/* Default route should go to Login */}
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<Login />} />
+        {/* ✅ Admin Dashboard */}
+        <Route element={<ProtectedRoute allowedRoles={["Admin"]} />}>
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        </Route>
+
+        {/* ✅ Manager Dashboard */}
+        <Route element={<ProtectedRoute allowedRoles={["Manager"]} />}>
+          <Route path="/manager-dashboard" element={<ManagerDashboard />} />
+        </Route>
+
+        {/* ✅ Employee Dashboard */}
+        <Route element={<ProtectedRoute allowedRoles={["Employee"]} />}>
+          <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+        </Route>
+        {/* ✅ Employee creation */}
+        <Route element={<ProtectedRoute allowedRoles={["Manager","Admin"]} />}>
+        <Route path={"/employee-creation"} element={<EmployeeForm/>}></Route>
+        </Route>
+        {/* ✅ client creation */}
+        <Route element={<ProtectedRoute allowedRoles={["Manager","Admin"]} />}>
+        <Route path={"/client"} element={<Client/>}></Route>
+        </Route>
+        {/* ✅ project creation */}
+        <Route element={<ProtectedRoute allowedRoles={["Manager","Admin"]} />}>
+        <Route path={"/project-creation"} element={<Project/>}></Route>
+        </Route>
+        {/* ✅ module creation */}
+        <Route element={<ProtectedRoute allowedRoles={["Manager","Admin"]} />}>
+        <Route path={"/module-creation"} element={<ModuleCreation/>}></Route>
+        </Route>
+        {/* ✅ module creation */}
+        <Route element={<ProtectedRoute allowedRoles={["Manager","Admin"]} />}>
+        <Route path={"/workAssign"} element={<WorkAssign/>}></Route>
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
