@@ -1,0 +1,910 @@
+### Authentication API
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin1",
+  "password": "adminpass"
+}
+
+
+
+index.js
+9 lines
+
+js
+
+
+Module.js
+29 lines
+
+js
+
+
+Project.js
+39 lines
+
+js
+
+
+User.js
+21 lines
+
+js
+
+
+WorkAssign.js
+71 lines
+
+js
+
+
+Client.js
+18 lines
+
+js
+
+
+Employee.js
+37 lines
+
+js
+
+
+moduleController.js
+46 lines
+
+js
+
+
+projectController.js
+75 lines
+
+js
+
+
+userController.js
+11 lines
+
+js
+
+
+workAssignController.js
+114 lines
+
+js
+
+
+authController.js
+31 lines
+
+js
+
+
+clientController.js
+61 lines
+
+js
+
+
+employeeControllers.js
+59 lines
+
+js
+
+
+all_apis.txt
+38 lines
+
+txt
+
+look all_apis.txt contains all the apis 
+what i want is to document all details of every api 
+can you give sample input and output of all apis
+
+Edit
+API Documentation
+I'll document each API endpoint with sample inputs and outputs based on the provided code files. Let's go through them systematically.
+
+1. Authentication API
+POST /api/auth/login
+Authenticates a user and returns a JWT token
+
+Sample Request:
+
+json
+{
+  "username": "john_doe",
+  "password": "password123"
+}
+Sample Response (Success):
+
+json
+{
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwid..."
+}
+Sample Response (Error - User not found):
+
+json
+{
+  "message": "User not found"
+}
+Sample Response (Error - Invalid password):
+
+json
+{
+  "message": "Invalid password"
+}
+2. User API
+GET /api/user/
+Get user by ID (requires authentication)
+
+Sample Request:
+
+GET /api/user/1
+Headers: 
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+Sample Response (Success):
+
+json
+{
+  "id": 1,
+  "username": "john_doe",
+  "role": "Manager",
+  "createdAt": "2025-04-10T14:30:22.000Z",
+  "updatedAt": "2025-04-10T14:30:22.000Z"
+}
+Sample Response (Error):
+
+json
+{
+  "message": "User not found"
+}
+3. Employee API
+POST /api/employees/add_employee
+Add a new employee (requires authentication)
+
+Sample Request:
+
+json
+{
+  "username": "jane_smith",
+  "password": "securepass123",
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "gender": "Female",
+  "mobileNumber": "9876543210",
+  "email": "jane.smith@example.com",
+  "permanentAddress": "123 Main St, City",
+  "contactAddress": "123 Main St, City",
+  "joiningDate": "2025-01-15T00:00:00.000Z",
+  "designation": "Software Developer",
+  "role": "Employee"
+}
+Sample Response (Success):
+
+json
+{
+  "message": "Employee added successfully",
+  "employee": {
+    "userId": 2,
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "gender": "Female",
+    "mobileNumber": "9876543210",
+    "email": "jane.smith@example.com",
+    "permanentAddress": "123 Main St, City",
+    "contactAddress": "123 Main St, City",
+    "username": "jane_smith",
+    "joiningDate": "2025-01-15T00:00:00.000Z",
+    "designation": "Software Developer",
+    "role": "Employee",
+    "updatedAt": "2025-04-16T12:34:56.789Z",
+    "createdAt": "2025-04-16T12:34:56.789Z"
+  }
+}
+Sample Response (Error):
+
+json
+{
+  "message": "Username already taken"
+}
+GET /api/employees
+Get all employees (requires authentication)
+
+Sample Request:
+
+GET /api/employees
+Headers: 
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+Sample Response (Success):
+
+json
+[
+  {
+    "userId": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "gender": "Male",
+    "mobileNumber": "1234567890",
+    "email": "john.doe@example.com",
+    "permanentAddress": "456 Oak Ave, Town",
+    "contactAddress": "456 Oak Ave, Town",
+    "username": "john_doe",
+    "joiningDate": "2024-12-01T00:00:00.000Z",
+    "designation": "Project Manager",
+    "role": "Manager",
+    "createdAt": "2025-03-10T09:23:18.000Z",
+    "updatedAt": "2025-03-10T09:23:18.000Z"
+  },
+  {
+    "userId": 2,
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "gender": "Female",
+    "mobileNumber": "9876543210",
+    "email": "jane.smith@example.com",
+    "permanentAddress": "123 Main St, City",
+    "contactAddress": "123 Main St, City",
+    "username": "jane_smith",
+    "joiningDate": "2025-01-15T00:00:00.000Z",
+    "designation": "Software Developer",
+    "role": "Employee",
+    "createdAt": "2025-04-16T12:34:56.789Z",
+    "updatedAt": "2025-04-16T12:34:56.789Z"
+  }
+]
+4. Client API
+GET /api/clients
+Get all clients
+
+Sample Request:
+
+GET /api/clients
+Sample Response (Success):
+
+json
+[
+  {
+    "client_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "clientName": "ABC Corporation",
+    "branchName": "Headquarters",
+    "contactNumber": "1234567890",
+    "email": "contact@abccorp.com",
+    "contactPerson": "Alice Johnson",
+    "createdAt": "2025-03-01T10:20:30.000Z",
+    "updatedAt": "2025-03-01T10:20:30.000Z"
+  },
+  {
+    "client_id": "5d53af3c-22b0-4aab-9634-1e4c27e61ab6",
+    "clientName": "XYZ Industries",
+    "branchName": "Downtown",
+    "contactNumber": "9876543210",
+    "email": "info@xyzind.com",
+    "contactPerson": "Bob Smith",
+    "createdAt": "2025-03-15T11:22:33.000Z",
+    "updatedAt": "2025-03-15T11:22:33.000Z"
+  }
+]
+POST /api/clients
+Add a new client
+
+Sample Request:
+
+json
+{
+  "clientName": "123 Systems",
+  "branchName": "North Branch",
+  "contactNumber": "5551234567",
+  "email": "contact@123systems.com",
+  "contactPerson": "Charlie Davis"
+}
+Sample Response (Success):
+
+json
+{
+  "client_id": "8f47e526-d388-4cab-bdbd-5c3c6583e4de",
+  "clientName": "123 Systems",
+  "branchName": "North Branch",
+  "contactNumber": "5551234567",
+  "email": "contact@123systems.com",
+  "contactPerson": "Charlie Davis",
+  "updatedAt": "2025-04-16T13:45:22.123Z",
+  "createdAt": "2025-04-16T13:45:22.123Z"
+}
+GET /api/clients/
+Get a client by ID
+
+Sample Request:
+
+GET /api/clients/f47ac10b-58cc-4372-a567-0e02b2c3d479
+Sample Response (Success):
+
+json
+{
+  "client_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+  "clientName": "ABC Corporation",
+  "branchName": "Headquarters",
+  "contactNumber": "1234567890",
+  "email": "contact@abccorp.com",
+  "contactPerson": "Alice Johnson",
+  "createdAt": "2025-03-01T10:20:30.000Z",
+  "updatedAt": "2025-03-01T10:20:30.000Z"
+}
+Sample Response (Error):
+
+json
+{
+  "message": "Client not found"
+}
+PUT /api/clients/
+Update a client
+
+Sample Request:
+
+PUT /api/clients/f47ac10b-58cc-4372-a567-0e02b2c3d479
+json
+{
+  "clientName": "ABC Corporation International",
+  "branchName": "Global Headquarters",
+  "contactNumber": "1234567890",
+  "email": "global@abccorp.com",
+  "contactPerson": "Alice Johnson"
+}
+Sample Response (Success):
+
+json
+{
+  "client_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+  "clientName": "ABC Corporation International",
+  "branchName": "Global Headquarters",
+  "contactNumber": "1234567890",
+  "email": "global@abccorp.com",
+  "contactPerson": "Alice Johnson",
+  "createdAt": "2025-03-01T10:20:30.000Z",
+  "updatedAt": "2025-04-16T14:30:45.678Z"
+}
+DELETE /api/clients/
+Delete a client
+
+Sample Request:
+
+DELETE /api/clients/f47ac10b-58cc-4372-a567-0e02b2c3d479
+Sample Response (Success):
+
+json
+{
+  "message": "Client deleted successfully"
+}
+Sample Response (Error):
+
+json
+{
+  "message": "Client not found"
+}
+5. Project API
+GET /api/projects
+Get all projects
+
+Sample Request:
+
+GET /api/projects
+Sample Response (Success):
+
+json
+[
+  {
+    "id": 1,
+    "projectName": "Website Redesign",
+    "client_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "clientName": "ABC Corporation",
+    "createdAt": "2025-03-05T14:25:36.000Z",
+    "updatedAt": "2025-03-05T14:25:36.000Z",
+    "Client": {
+      "clientName": "ABC Corporation"
+    }
+  },
+  {
+    "id": 2,
+    "projectName": "Mobile App Development",
+    "client_id": "5d53af3c-22b0-4aab-9634-1e4c27e61ab6",
+    "clientName": "XYZ Industries",
+    "createdAt": "2025-03-20T09:18:27.000Z",
+    "updatedAt": "2025-03-20T09:18:27.000Z",
+    "Client": {
+      "clientName": "XYZ Industries"
+    }
+  }
+]
+POST /api/projects
+Add a new project
+
+Sample Request:
+
+json
+{
+  "projectName": "E-commerce Platform",
+  "client_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+}
+Sample Response (Success):
+
+json
+{
+  "id": 3,
+  "projectName": "E-commerce Platform",
+  "client_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+  "clientName": "ABC Corporation",
+  "updatedAt": "2025-04-16T15:12:33.456Z",
+  "createdAt": "2025-04-16T15:12:33.456Z",
+  "Client": {
+    "client_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "clientName": "ABC Corporation",
+    "branchName": "Headquarters",
+    "contactNumber": "1234567890",
+    "email": "contact@abccorp.com",
+    "contactPerson": "Alice Johnson",
+    "createdAt": "2025-03-01T10:20:30.000Z",
+    "updatedAt": "2025-03-01T10:20:30.000Z"
+  }
+}
+GET /api/projects/client/
+Get projects for a specific client
+
+Sample Request:
+
+GET /api/projects/client/f47ac10b-58cc-4372-a567-0e02b2c3d479
+Sample Response (Success):
+
+json
+[
+  {
+    "id": 1,
+    "projectName": "Website Redesign",
+    "client_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "clientName": "ABC Corporation",
+    "createdAt": "2025-03-05T14:25:36.000Z",
+    "updatedAt": "2025-03-05T14:25:36.000Z",
+    "Client": {
+      "clientName": "ABC Corporation"
+    }
+  },
+  {
+    "id": 3,
+    "projectName": "E-commerce Platform",
+    "client_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "clientName": "ABC Corporation",
+    "createdAt": "2025-04-16T15:12:33.456Z",
+    "updatedAt": "2025-04-16T15:12:33.456Z",
+    "Client": {
+      "clientName": "ABC Corporation"
+    }
+  }
+]
+Sample Response (Error):
+
+json
+{
+  "error": "No projects found for this client"
+}
+6. Module API
+GET /api/modules
+Get all modules
+
+Sample Request:
+
+GET /api/modules
+Sample Response (Success):
+
+json
+[
+  {
+    "id": 1,
+    "moduleName": "User Authentication",
+    "project_id": 1,
+    "createdAt": "2025-03-08T11:22:33.000Z",
+    "updatedAt": "2025-03-08T11:22:33.000Z",
+    "Project": {
+      "projectName": "Website Redesign"
+    }
+  },
+  {
+    "id": 2,
+    "moduleName": "Shopping Cart",
+    "project_id": 3,
+    "createdAt": "2025-04-17T09:15:27.000Z",
+    "updatedAt": "2025-04-17T09:15:27.000Z",
+    "Project": {
+      "projectName": "E-commerce Platform"
+    }
+  }
+]
+POST /api/modules
+Add a new module
+
+Sample Request:
+
+json
+{
+  "moduleName": "Payment Gateway",
+  "project_id": 3
+}
+Sample Response (Success):
+
+json
+{
+  "id": 3,
+  "moduleName": "Payment Gateway",
+  "project_id": 3,
+  "updatedAt": "2025-04-17T10:30:45.678Z",
+  "createdAt": "2025-04-17T10:30:45.678Z"
+}
+Sample Response (Error):
+
+json
+{
+  "message": "Invalid Project ID"
+}
+GET /api/modules/
+Get modules by project ID
+
+Sample Request:
+
+GET /api/modules/3
+Sample Response (Success):
+
+json
+[
+  {
+    "id": 2,
+    "moduleName": "Shopping Cart",
+    "project_id": 3,
+    "createdAt": "2025-04-17T09:15:27.000Z",
+    "updatedAt": "2025-04-17T09:15:27.000Z"
+  },
+  {
+    "id": 3,
+    "moduleName": "Payment Gateway",
+    "project_id": 3,
+    "createdAt": "2025-04-17T10:30:45.678Z",
+    "updatedAt": "2025-04-17T10:30:45.678Z"
+  }
+]
+7. Work Assignment API
+POST /api/workassign
+Assign work to an employee
+
+Sample Request:
+
+json
+{
+  "userId": 2,
+  "module_id": 3,
+  "workType": "New Module",
+  "startDatetime": "2025-04-18T09:00:00.000Z",
+  "endDatetime": "2025-04-25T18:00:00.000Z",
+  "expectedCompletionDate": "2025-04-25T18:00:00.000Z",
+  "priority": "High",
+  "status": "Pending",
+  "remarks": "Implement secure payment processing with Stripe",
+  "referencePhoto": "payment_flow_diagram.jpg"
+}
+Sample Response (Success):
+
+json
+{
+  "id": 1,
+  "userId": 2,
+  "module_id": 3,
+  "workType": "New Module",
+  "start_datetime": "2025-04-18T09:00:00.000Z",
+  "end_datetime": "2025-04-25T18:00:00.000Z",
+  "expected_completion_date": "2025-04-25T18:00:00.000Z",
+  "priority": "High",
+  "status": "Pending",
+  "remarks": "Implement secure payment processing with Stripe",
+  "reference_photo": "payment_flow_diagram.jpg",
+  "updatedAt": "2025-04-17T16:20:35.789Z",
+  "createdAt": "2025-04-17T16:20:35.789Z"
+}
+Sample Response (Error):
+
+json
+{
+  "error": "Invalid Employee or Module ID"
+}
+GET /api/workassign
+Get all work assignments
+
+Sample Request:
+
+GET /api/workassign
+Sample Response (Success):
+
+json
+[
+  {
+    "id": 1,
+    "userId": 2,
+    "module_id": 3,
+    "workType": "New Module",
+    "start_datetime": "2025-04-18T09:00:00.000Z",
+    "end_datetime": "2025-04-25T18:00:00.000Z",
+    "expected_completion_date": "2025-04-25T18:00:00.000Z",
+    "priority": "High",
+    "status": "Pending",
+    "remarks": "Implement secure payment processing with Stripe",
+    "reference_photo": "payment_flow_diagram.jpg",
+    "createdAt": "2025-04-17T16:20:35.789Z",
+    "updatedAt": "2025-04-17T16:20:35.789Z",
+    "Employee": {
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "designation": "Software Developer"
+    },
+    "Module": {
+      "moduleName": "Payment Gateway",
+      "Project": {
+        "projectName": "E-commerce Platform"
+      }
+    }
+  }
+]
+PUT /api/workassign/update/
+Update work assignment
+
+Sample Request:
+
+PUT /api/workassign/update/1
+json
+{
+  "status": "In Progress",
+  "remarks": "Stripe integration in process, testing payment flow",
+  "priority": "High"
+}
+Sample Response (Success):
+
+json
+{
+  "message": "Work updated successfully",
+  "work": {
+    "id": 1,
+    "userId": 2,
+    "module_id": 3,
+    "workType": "New Module",
+    "start_datetime": "2025-04-18T09:00:00.000Z",
+    "end_datetime": "2025-04-25T18:00:00.000Z",
+    "expected_completion_date": "2025-04-25T18:00:00.000Z",
+    "priority": "High",
+    "status": "In Progress",
+    "remarks": "Stripe integration in process, testing payment flow",
+    "reference_photo": "payment_flow_diagram.jpg",
+    "createdAt": "2025-04-17T16:20:35.789Z",
+    "updatedAt": "2025-04-17T17:45:12.345Z"
+  }
+}
+Sample Response (Error):
+
+json
+{
+  "error": "Work not found"
+}
+This completes the documentation of all APIs in the system with sample inputs and outputs based on the code provided.
+
+
+
+
+
+since you know all api and its input i will try running it all in .reat 
+so give code for .rest for all api seperately
+
+Edit
+
+REST API Collection
+Code 
+Here's a complete collection of .rest API calls for your project management system. This file can be used with REST Client extensions in VS Code or similar IDEs.
+
+The collection is organized by entity type and includes all endpoints from your API documentation. Each request is separated by ### markers, which allows you to run them individually.
+
+A few key features I've included:
+
+Authentication token management - the login endpoint will capture the token that's used in subsequent authenticated requests
+Proper content type headers
+Sample JSON request bodies
+Named requests (like @name login) to reference responses
+To use this:
+
+Save the code as a .rest file (e.g., api-collection.rest)
+Install a REST Client extension if you're using VS Code
+Click the "Send Request" link that appears above each request
+You may need to update the:
+
+Host URL if your server isn't running on localhost:3000
+UUIDs for client IDs or other resources after you've created them
+Numeric IDs for projects, modules, etc.
+Would you like me to create separate .rest files for each entity type instead of a single collection?
+
+
+
+
+I THINK WE LEFT 
+router.get("/:id",authenticateToken, getUserByUserId);
+
+Edit
+You're right. We need to include the route for getting a user by ID. Let me add that to the REST API collection:
+
+
+User API REST Request
+Code 
+This REST request demonstrates how to call the GET /api/user/:id endpoint with authentication. The request:
+
+First logs in to get an authentication token
+Stores that token in the @authToken variable
+Makes a GET request to /api/user/1 with the token in the Authorization header
+This endpoint returns user information for the specified ID, as defined in the getUserByUserId function from your user controller. Make sure to replace the ID (1 in this example) with the actual user ID you want to query.
+
+
+
+
+
+
+
+### User API
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "indrahiro",
+  "password": "indpass"
+}
+
+
+
+###
+# Get user by ID
+GET http://localhost:5000/api/user/19
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksInVzZXJuYW1lIjoiaW5kcmFoaXJvIiwicm9sZSI6IkVtcGxveWVlIiwiaWF0IjoxNzQ0ODAwMDQ1LCJleHAiOjE3NDQ4MDM2NDV9.u3Sb-q6S-sMzvu0OaEWRtq5Q_wLCkddWdPIvC7EiVvw
+
+
+
+### Employee API
+###
+# Add a new employee
+POST http://localhost:5000/api/employees/add_employee
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ3OTY1ODcsImV4cCI6MTc0NDgwMDE4N30.zdT5Tsy5YnWDaoNBjJ8VLT3iP-0iz6nlQXC9c2-xRt8
+Content-Type: application/json
+
+{
+  "username": "jane_smith",
+  "password": "securepass123",
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "gender": "Female",
+  "mobileNumber": "9876543210",
+  "email": "jane.smith@example.com",
+  "permanentAddress": "123 Main St, City",
+  "contactAddress": "123 Main St, City",
+  "joiningDate": "2025-01-15T00:00:00.000Z",
+  "designation": "Software Developer",
+  "role": "Employee"
+}
+
+###
+# Get all employees
+GET http://localhost:5000/api/employees
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ3OTY1ODcsImV4cCI6MTc0NDgwMDE4N30.zdT5Tsy5YnWDaoNBjJ8VLT3iP-0iz6nlQXC9c2-xRt8
+
+###
+# Add a new client
+POST http://localhost:5000/api/clients
+Content-Type: application/json
+
+{
+  "clientName": "123 Systems",
+  "branchName": "North Branch",
+  "contactNumber": "5551234567",
+  "email": "contact@123systems.com",
+  "contactPerson": "Charlie Davis"
+}
+
+### Client API
+###
+# Get all clients
+GET http://localhost:5000/api/clients
+
+
+###
+# Get client by ID (use a valid UUID after creating a client)
+GET http://localhost:5000/api/clients/1ca0cfd3-ec31-484b-82d9-351dd7025211
+
+###
+# Update a client
+PUT http://localhost:5000/api/clients/1ca0cfd3-ec31-484b-82d9-351dd7025211
+Content-Type: application/json
+
+{
+  "clientName": "client2",
+  "branchName": "branch2",
+  "contactNumber": "9876543210",
+  "email": "client2@gmail.com",
+  "contactPerson": "bob"
+}
+
+###
+# Delete a client
+DELETE http://localhost:5000/api/clients/1ca0cfd3-ec31-484b-82d9-351dd7025211
+
+###
+# Add a new project
+POST http://localhost:5000/api/projects
+Content-Type: application/json
+
+{
+  "projectName": "E-commerce Platform",
+  "client_id": "1cc927a1-4e9f-4e08-83aa-58e28b272556"
+}
+
+###
+# Get projects by client ID
+GET http://localhost:5000/api/projects/client/1cc927a1-4e9f-4e08-83aa-58e28b272556
+
+###
+# Get All projects
+GET http://localhost:5000/api/projects/
+
+### Module API
+###
+# Get all modules
+GET http://localhost:5000/api/modules
+
+###
+# Add a new module (use a valid project_id)
+POST http://localhost:5000/api/modules
+Content-Type: application/json
+
+{
+  "moduleName": "Payment Gateway",
+  "project_id": 5
+}
+
+
+###
+# Get modules by project ID
+GET http://localhost:5000/api/modules/5
+
+
+### Work Assignment API
+###
+# Assign work to an employee
+POST http://localhost:5000/api/workassign
+Content-Type: application/json
+
+{
+  "userId": 13,
+  "module_id": 4,
+  "workType": "New Module",
+  "startDatetime": "2025-04-18T09:00:00.000Z",
+  "endDatetime": "2025-04-25T18:00:00.000Z",
+  "expectedCompletionDate": "2025-04-25T18:00:00.000Z",
+  "priority": "High",
+  "status": "Pending",
+  "remarks": "Implement secure payment processing with Stripe",
+  "referencePhoto": "payment_flow_diagram.jpg"
+}
+
+###
+# Get all work assignments
+GET http://localhost:5000/api/workassign
+
+###
+# Update work assignment
+PUT http://localhost:5000/api/workassign/update/6
+Content-Type: application/json
+
+{
+  "status": "In Progress",
+  "remarks": "Stripe integration in process, testing payment flow",
+  "priority": "High"
+}

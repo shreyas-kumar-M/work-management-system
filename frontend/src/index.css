@@ -1,6 +1,31 @@
 @import "tailwindcss";
 
 @import "tailwindcss";
+@plugin 'tailwind-scrollbar';
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+  }
+
+  *::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  *::-webkit-scrollbar-track {
+    background-color: var(--scroll-track);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-thumb);
+    border-radius: 9999px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 /* Default Light Theme */
 :root {
@@ -15,6 +40,8 @@
   --button-text: #ffffff;
   --emoji-color: #1b1b1bff;
   --background-gradient: linear-gradient(135deg, #C6C6C6FF, #ffffff);
+  --scroll-thumb: theme('colors.zinc.700'); /* light thumb */
+  --scroll-track: theme('colors.zinc.100'); /* light track */ /* slate-100 */ 
 }
 
 /* Dark Theme */
@@ -29,6 +56,8 @@
   --button-text: #ffffff;
   --emoji-color: #ecececff;
   --background-gradient: linear-gradient(135deg, #353535FF, #080808FF);
+  --scroll-thumb: theme('colors.zinc.300'); /* dark thumb */
+  --scroll-track: theme('colors.zinc.800'); /* dark track */ /* slate-800 */
 }
 
 /* Smooth transitions */

@@ -33,53 +33,54 @@ const EmployeeForm = () => {
     console.log("Form Data Before Submission:", formData); // ✅ Log formData
 
     try {
-        const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
 
-        if (!token) {
-            setMessage("❌ Unauthorized: No token found. Please log in.");
-            console.error("No token found, user must log in.");
-            return;
+      if (!token) {
+        setMessage("❌ Unauthorized: No token found. Please log in.");
+        console.error("No token found, user must log in.");
+        return;
+      }
+
+      const response = await fetch(
+        "http://localhost:5000/api/employees/add_employee",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(formData),
         }
+      );
 
-        const response = await fetch(
-            "http://localhost:5000/api/employees/add_employee",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(formData),
-            }
-        );
+      const result = await response.json();
+      console.log("Server Response:", result); // ✅ Log the response
 
-        const result = await response.json();
-        console.log("Server Response:", result); // ✅ Log the response
+      if (response.ok) {
+        setMessage("✅ Employee added successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          gender: "",
+          mobileNumber: "",
+          email: "",
+          permanentAddress: "",
+          contactAddress: "",
+          username: "",
+          password: "",
+          joiningDate: "",
+          designation: "",
+          role: "",
+        });
 
-        if (response.ok) {
-            setMessage("✅ Employee added successfully!");
-            setFormData({
-                firstName: "",
-                lastName: "",
-                gender: "",
-                mobileNumber: "",
-                email: "",
-                permanentAddress: "",
-                contactAddress: "",
-                username: "",
-                password: "",
-                joiningDate: "",
-                designation: "",
-                role: "",
-            });
-        } else {
-            setMessage(`❌ Error: ${result.message}`);
-        }
+        alert("✅ Employee added successfully!");
+      } else {
+        setMessage(`❌ Error: ${result.message}`);
+      }
     } catch (error) {
-        setMessage("❌ Failed to submit data");
-        console.error("Error:", error);
+      setMessage("❌ Failed to submit data");
+      console.error("Error:", error);
     }
-
   };
   return (
     <div>

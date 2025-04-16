@@ -1,0 +1,38 @@
+//auth
+app.use("/api/auth", authRoutes);
+    router.post("/login", loginUser);
+
+//user
+app.use("/api/user", userRoutes);
+    router.get("/:id",authenticateToken, getUserByUserId);
+
+//employee
+app.use("/api/employees", employeeRoutes);
+    router.post("/add_employee",authenticateToken, addEmployee);
+    router.get("/",authenticateToken, getAllEmployees);
+
+//client
+app.use("/api/clients", clientRoutes);
+    router.get("/", getClients);
+    router.post("/", addClient);
+    router.get("/:id", getClientById);
+    router.put("/:id", updateClient); //not used
+    router.delete("/:id", deleteClient); //not used
+
+//project
+app.use("/api/projects", projectRoutes);
+    router.get("/", getProjects);
+    router.post("/", addProject);
+    router.get("/client/:clientId", getProjectsByClient);
+
+//module
+app.use("/api/modules", moduleRoutes);
+    router.get("/", getModules);
+    router.post("/", addModule);
+    router.get("/:projectId", getModulesByProjectId);
+
+//workAssign
+app.use("/api/workassign", workAssignRoutes);
+    router.post("/", assignWork);
+    router.get("/", getWorkAssignments);
+    router.put("/update/:id", updateWorkAssignment);

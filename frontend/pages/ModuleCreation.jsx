@@ -28,26 +28,47 @@ const ModuleCreation = () => {
 
   useEffect(() => {
     if (!formData.clientId) {
-        setProjects([]); // Clear projects when no client is selected
-        return;
+      setProjects([]);
+      return;
     }
-
+  
     let isMounted = true;
-    fetch(`http://localhost:5000/api/projects/client/${formData.clientId}`)
-        .then((res) => res.json())
-        .then((data) => {
-            if (isMounted) {
-                setProjects(data);
-                setFormData((prev) => ({ ...prev, projectId: "" })); // Reset project selection
-            }
-        })
-        .catch((err) => console.error("Error fetching projects:", err));
-
-    return () => {
-        isMounted = false;
+  
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/projects/client/${formData.clientId}`);
+  
+        if (!res.ok) {
+          // If API returns 404 or any error, we assume no projects
+          setProjects([]);
+          return;
+        }
+  
+        const data = await res.json();
+  
+        if (isMounted) {
+          // Make sure it's an array before setting it
+          if (Array.isArray(data)) {
+            setProjects(data);
+          } else {
+            setProjects([]);
+          }
+  
+          setFormData((prev) => ({ ...prev, projectId: "" }));
+        }
+      } catch (err) {
+        console.error("Error fetching projects:", err);
+        setProjects([]);
+      }
     };
-}, [formData.clientId]);
-
+  
+    fetchProjects();
+  
+    return () => {
+      isMounted = false;
+    };
+  }, [formData.clientId]);
+  
   // Handle Input Change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -67,7 +88,7 @@ const ModuleCreation = () => {
       });
 
       if (!res.ok) throw new Error("Failed to add module");
-
+      alert("✅ Module added successfully!");
       setFormData({ clientId: "", projectId: "", moduleName: "" });
     } catch (err) {
       console.error("Error adding module:", err);
@@ -111,20 +132,27 @@ const ModuleCreation = () => {
         </select>
 
         {/* Select Project */}
-        <select
-          name="projectId"
-          onChange={handleChange}
-          value={formData.projectId}
-          className="input-style"
-          required
-        >
-          <option value="">Select Project</option>
-          {projects.map((project) => (
-            <option key={project.id} value={project.id}>
-              {project.projectName}
-            </option>
-          ))}
-        </select>
+        {formData.clientId && projects.length === 0 ? (
+          <div className="text-red-500 text-sm italic">
+            No projects found for this client.
+          </div>
+        ) : (
+          <select
+            name="projectId"
+            onChange={handleChange}
+            value={formData.projectId}
+            className="input-style"
+            required
+            disabled={!formData.clientId}
+          >
+            <option value="">Select Project</option>
+            {projects.map((project) => (
+              <option key={project.id} value={project.id}>
+                {project.projectName}
+              </option>
+            ))}
+          </select>
+        )}
 
         {/* Module Name Input */}
         <input

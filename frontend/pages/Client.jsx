@@ -45,6 +45,8 @@ const Client = () => {
           email: "",
           contactPerson: "",
         });
+        alert("✅ Client added successfully!");
+
       })
       .catch((err) => console.error("Error adding client:", err));
   };
