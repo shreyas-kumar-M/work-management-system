@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useTheme from "../hooks/useTheme"; // Custom hook for theme management
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const DashboardCard = ({ title, route }) => {
   const navigate = useNavigate();
@@ -23,12 +24,11 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [projects, setProjects] = useState([]);
-  const { theme, toggleTheme } = useTheme(); // Using the custom hook
+  const { theme, toggleTheme } = useTheme();
 
   const token = localStorage.getItem("token");
 
   const getUserIdFromToken = () => {
-    // Implement actual token decoding logic here
     try {
       const payload = JSON.parse(atob(token.split(".")[1]));
       return payload.id;
@@ -41,7 +41,7 @@ const AdminDashboard = () => {
   const fetchUser = async () => {
     try {
       let id = getUserIdFromToken();
-      const response = await fetch(`http://localhost:5000/api/user/${id}`, {
+      const response = await fetch(`${BASE_URL}api/user/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const AdminDashboard = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/employees", {
+      const response = await fetch(`${BASE_URL}api/employees`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -84,10 +84,10 @@ const AdminDashboard = () => {
 
   const fetchWorkAssignments = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/workassign", {
+      const res = await fetch(`${BASE_URL}api/workassign`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ Add this line
+          Authorization: `Bearer ${token}`, 
         },
       });
       const data = await res.json();
@@ -99,17 +99,20 @@ const AdminDashboard = () => {
 
   const fetchProjects = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/projects`);
+      const res = await fetch(`${BASE_URL}api/projects`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, 
+        },
+      });
 
       if (!res.ok) {
-        // If API returns 404 or any error, we assume no projects
         setProjects([]);
         return;
       }
 
       const data = await res.json();
 
-      // Make sure it's an array before setting it
       if (Array.isArray(data)) {
         setProjects(data);
       } else {
@@ -121,7 +124,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // ✅ Proper useEffect
   useEffect(() => {
     if (token) {
       fetchUser();

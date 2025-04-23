@@ -1,6 +1,9 @@
 import { useState } from "react";
 import useTheme from "../hooks/useTheme"; // Custom hook for theme management
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
+
 const EmployeeForm = () => {
   const { theme, toggleTheme } = useTheme(); // Using the custom hook
   const [message, setMessage] = useState(""); // ✅ To store response message
@@ -42,7 +45,7 @@ const EmployeeForm = () => {
       }
 
       const response = await fetch(
-        "http://localhost:5000/api/employees/add_employee",
+        `${BASE_URL}api/employees/add_employee`,
         {
           method: "POST",
           headers: {

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useTheme from "../hooks/useTheme"; // Custom hook for theme management
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const Client = () => {
   const [formData, setFormData] = useState({
     clientName: "",
@@ -13,13 +15,18 @@ const Client = () => {
   const [clients, setClients] = useState([]);
   const { theme, toggleTheme } = useTheme(); // Using the custom hook
 
+  const token = localStorage.getItem("token");
+
   // Fetch existing clients from API
   useEffect(() => {
-    fetch("http://localhost:5000/api/clients") // Correct API URL
-    .then((res) => res.json())
+
+    fetch(`${BASE_URL}api/clients`,{
+      headers: { Authorization: `Bearer ${token}`, }
+    }) // Correct API URL
+      .then((res) => res.json())
       .then((data) => setClients(data))
       .catch((err) => console.error("Error fetching clients:", err));
-  }, []);
+  }, [token]);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -30,9 +37,12 @@ const Client = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:5000/api/clients", {
+    fetch(`${BASE_URL}api/clients`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+       Authorization: `Bearer ${token}`,
+
+       },
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
@@ -46,7 +56,6 @@ const Client = () => {
           contactPerson: "",
         });
         alert("✅ Client added successfully!");
-
       })
       .catch((err) => console.error("Error adding client:", err));
   };

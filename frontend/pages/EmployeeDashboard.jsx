@@ -3,6 +3,8 @@ import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import useTheme from "../hooks/useTheme"; // Custom theme hook
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const EmployeeDashboard = () => {
   const [assignedWork, setAssignedWork] = useState([]);
   const [user, setUser] = useState(null);
@@ -20,7 +22,12 @@ const EmployeeDashboard = () => {
 
     const fetchAssignedWork = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/workassign");
+        const res = await axios.get('${BASE_URL}api/workassign', {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const employeeWorks = res.data.filter(
           (work) => work.userId === decoded.id
         );
@@ -48,7 +55,7 @@ const EmployeeDashboard = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/workassign/update/${work.id}`,
+        `${BASE_URL}api/workassign/update/${work.id}`,
         payload
       );
 
@@ -166,7 +173,7 @@ const EmployeeDashboard = () => {
                 onClick={() => handleUpdate(work, index)}
                 className="bg-[var(--button-bg)] hover:bg-[var(--button-bg-hover)] text-[var(--button-text)] px-4 py-2 rounded transition active:scale-95"
               >
-                ✅ Update Work
+                Update Work
               </button>
             </div>
           ))}

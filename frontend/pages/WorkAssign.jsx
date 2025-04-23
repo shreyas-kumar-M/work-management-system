@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useTheme from "../hooks/useTheme";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const WorkAssign = () => {
   const [formData, setFormData] = useState({
     employeeId: "",
@@ -20,15 +22,16 @@ const WorkAssign = () => {
   const [modules, setModules] = useState([]);
   const { theme, toggleTheme } = useTheme();
 
+  const token = localStorage.getItem("token"); // Get token from localStorage
+
   // Fetch Employees on Mount
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Get token from localStorage
     if (!token) {
       console.error("No authentication token found!");
       return;
     }
 
-    fetch("http://localhost:5000/api/employees", {
+    fetch(`${BASE_URL}api/employees`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -51,12 +54,17 @@ const WorkAssign = () => {
         }
       })
       .catch((err) => console.error("Error fetching employees:", err));
-  }, []);
+  }, [token]);
 
   // Fetch Modules on Mount
   useEffect(() => {
     let isMounted = true;
-    fetch("http://localhost:5000/api/modules")
+    fetch(`${BASE_URL}api/modules`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Send token in the request
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (isMounted) setModules(data);
@@ -66,7 +74,7 @@ const WorkAssign = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [token]);
 
   // Handle Input Change
   const handleChange = (e) => {
@@ -84,12 +92,15 @@ const WorkAssign = () => {
       module_id: Number(formData.moduleId),
     };
 
-    console.log("Submitting Data:", payload); // 🛠 Debugging step
+    console.log("Submitting Data:", payload);
 
     try {
-      const res = await fetch("http://localhost:5000/api/workassign", {
+      const res = await fetch(`${BASE_URL}api/workassign`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(payload),
       });
 
@@ -97,6 +108,8 @@ const WorkAssign = () => {
         const errorData = await res.json();
         throw new Error(`Failed to assign work: ${JSON.stringify(errorData)}`);
       }
+
+      alert("✅ Work assigned successfully!");
 
       console.log("Work assigned successfully!");
     } catch (err) {

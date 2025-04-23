@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import useTheme from "../hooks/useTheme"; // Custom hook for theme management
 
+
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const ProjectCreation = () => {
   const [formData, setFormData] = useState({
     client_id: "",
@@ -12,13 +15,25 @@ const ProjectCreation = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const { theme, toggleTheme } = useTheme(); // Using the custom hook
 
+  const token = localStorage.getItem("token");
+
   // Fetch clients & projects together
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [clientsRes, projectsRes] = await Promise.all([
-          fetch("http://localhost:5000/api/clients"),
-          fetch("http://localhost:5000/api/projects"),
+          fetch(`${BASE_URL}api/clients`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }),
+          fetch(`${BASE_URL}api/projects`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }),
         ]);
 
         const clientsData = await clientsRes.json();
@@ -46,16 +61,25 @@ const ProjectCreation = () => {
     e.preventDefault();
     try {
       console.log("Sending Project Data:", formData);
-      const res = await fetch("http://localhost:5000/api/projects", {
+      const res = await fetch(`${BASE_URL}api/projects`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+         },
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json();
-      setProjects([...projects, data]); // Update project list
+      if (!res.ok) {
+        throw new Error("Failed to create project");
+      }
 
-      // ✅ Corrected state reset
+      const data = await res.json();
+      setProjects([...projects, data]);
+
+ 
+  
+      alert("✅ Project created successfully!");
+      
       setFormData({ client_id: "", projectName: "" });
     } catch (err) {
       console.error("Error adding project:", err);

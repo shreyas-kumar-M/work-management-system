@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import useTheme from "../hooks/useTheme";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
+
 const ModuleCreation = () => {
   const [formData, setFormData] = useState({
     clientId: "",
@@ -11,10 +14,17 @@ const ModuleCreation = () => {
   const [projects, setProjects] = useState([]);
   const { theme, toggleTheme } = useTheme();
 
+  const token = localStorage.getItem("token");
+
   // Fetch Clients on Mount
   useEffect(() => {
     let isMounted = true;
-    fetch("http://localhost:5000/api/clients")
+    fetch(`${BASE_URL}api/clients`,{
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // 👈 Add this
+      }
+    })
       .then((res) => res.json())
       .then((data) => {
         if (isMounted) setClients(data);
@@ -24,7 +34,7 @@ const ModuleCreation = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if (!formData.clientId) {
@@ -36,7 +46,12 @@ const ModuleCreation = () => {
   
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/projects/client/${formData.clientId}`);
+        const res = await fetch(`${BASE_URL}api/projects/client/${formData.clientId}`,{
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // 👈 Add this
+          }
+        });
   
         if (!res.ok) {
           // If API returns 404 or any error, we assume no projects
@@ -78,9 +93,13 @@ const ModuleCreation = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/modules", {
+      const res = await fetch(`${BASE_URL}api/modules`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+
+         },
         body: JSON.stringify({
           project_id: formData.projectId,
           moduleName: formData.moduleName,

@@ -1,0 +1,742 @@
+---LOGIN---
+
+# POST
+
+->input
+
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "indrahiro",
+  "password": "indpass"
+}
+
+->result
+
+{
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksInVzZXJuYW1lIjoiaW5kcmFoaXJvIiwicm9sZSI6IkVtcGxveWVlIiwiaWF0IjoxNzQ0OTg0MzU3LCJleHAiOjE3NDQ5ODc5NTd9.WC9AvVPUb_JftX-1IuqtovoHR9DPo8LrO4VKUoDcoMo"
+}
+
+# GET users by id
+
+->input
+
+GET http://localhost:5000/api/user/19
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksInVzZXJuYW1lIjoiaW5kcmFoaXJvIiwicm9sZSI6IkVtcGxveWVlIiwiaWF0IjoxNzQ0OTg0MzU3LCJleHAiOjE3NDQ5ODc5NTd9.WC9AvVPUb_JftX-1IuqtovoHR9DPo8LrO4VKUoDcoMo
+
+-> result
+
+{
+  "id": 19,
+  "username": "indrahiro",
+  "password": "$2b$10$6rRD3gEP59jF1DBsWkkbwOxSr6V7NkPrqpkDa0bdrGLR//yHt16.m",
+  "role": "Employee",
+  "createdAt": "2025-04-04T15:59:58.000Z",
+  "updatedAt": "2025-04-04T15:59:58.000Z"
+}
+
+//i think no reed to return password
+
+---EMPLOYEE---
+
+# POST
+add new employee
+
+->input
+
+POST http://localhost:5000/api/employees/add_employee
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
+Content-Type: application/json
+
+{
+  "username": "mark_jonas",
+  "password": "pass123",
+  "firstName": "mark",
+  "lastName": "jonas",
+  "gender": "Female",
+  "mobileNumber": "9876543210",
+  "email": "mark.jonas@example.com",
+  "permanentAddress": "123 Main St, City",
+  "contactAddress": "123 Main St, City",
+  "joiningDate": "2025-01-15T00:00:00.000Z",
+  "designation": "Software Developer",
+  "role": "Employee"
+}
+
+//here token of admin or manager
+
+->result
+{
+  "message": "Employee added successfully",
+  "employee": {
+    "firstName": "mark",
+    "lastName": "jonas",
+    "gender": "Female",
+    "mobileNumber": "9876543210",
+    "permanentAddress": "123 Main St, City",
+    "contactAddress": "123 Main St, City",
+    "joiningDate": "2025-01-15T00:00:00.000Z",
+    "designation": "Software Developer",
+    "username": "mark_jonas",
+    "email": "mark.jonas@example.com",
+    "role": "Employee",
+    "userId": 22,
+    "updatedAt": "2025-04-18T14:05:28.728Z",
+    "createdAt": "2025-04-18T14:05:28.728Z"
+  }
+}
+
+//i think return of employee is not required mainly(password, mobile no etc)
+
+
+#GET
+get all employees
+
+->input
+
+GET http://localhost:5000/api/employees
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
+
+->result
+
+
+[
+  {
+    "userId": 14,
+    "firstName": "Shreyas",
+    "lastName": "Kumar M",
+    "gender": "Male",
+    "mobileNumber": "8310063124",
+    "email": "nnm22cs373@nmamit.in",
+    "permanentAddress": "Srinidhi, Shakthinagara, Guruvayanakere, Belthangady taluk",
+    "contactAddress": "Srinidhi, Shakthinagara, Guruvayanakere, Belthangady taluk",
+    "username": "ben",
+    "joiningDate": "2025-03-01T00:00:00.000Z",
+    "designation": "Software engineer",
+    "role": "Employee",
+    "createdAt": "2025-03-30T02:46:44.000Z",
+    "updatedAt": "2025-03-30T02:46:44.000Z"
+  },
+  {
+    "userId": 18,
+    "firstName": "mark",
+    "lastName": "rutherford",
+    "gender": "Male",
+    "mobileNumber": "4561478520",
+    "email": "markrutherford@gmail.com",
+    "permanentAddress": "mark house",
+    "contactAddress": "mark house",
+    "username": "mark",
+    "joiningDate": "2025-04-04T00:00:00.000Z",
+    "designation": "software engineer",
+    "role": "Employee",
+    "createdAt": "2025-04-04T06:20:48.000Z",
+    "updatedAt": "2025-04-04T06:20:48.000Z"
+  },
+  {
+    "userId": 19,
+    "firstName": "indrahiro",
+    "lastName": "damenion",
+    "gender": "Male",
+    "mobileNumber": "9879633210",
+    "email": "indrahiro@gmail.com",
+    "permanentAddress": "dabi",
+    "contactAddress": "dabi",
+    "username": "indrahiro",
+    "joiningDate": "2025-04-18T00:00:00.000Z",
+    "designation": "Software engineer",
+    "role": "Employee",
+    "createdAt": "2025-04-04T15:59:58.000Z",
+    "updatedAt": "2025-04-04T15:59:58.000Z"
+  },
+  {
+    "userId": 21,
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "gender": "Female",
+    "mobileNumber": "9876543210",
+    "email": "jane.smith@example.com",
+    "permanentAddress": "123 Main St, City",
+    "contactAddress": "123 Main St, City",
+    "username": "jane_smith",
+    "joiningDate": "2025-01-15T00:00:00.000Z",
+    "designation": "Software Developer",
+    "role": "Employee",
+    "createdAt": "2025-04-16T09:47:59.000Z",
+    "updatedAt": "2025-04-16T09:47:59.000Z"
+  },
+  {
+    "userId": 22,
+    "firstName": "mark",
+    "lastName": "jonas",
+    "gender": "Female",
+    "mobileNumber": "9876543210",
+    "email": "mark.jonas@example.com",
+    "permanentAddress": "123 Main St, City",
+    "contactAddress": "123 Main St, City",
+    "username": "mark_jonas",
+    "joiningDate": "2025-01-15T00:00:00.000Z",
+    "designation": "Software Developer",
+    "role": "Employee",
+    "createdAt": "2025-04-18T14:05:28.000Z",
+    "updatedAt": "2025-04-18T14:05:28.000Z"
+  }
+]
+
+
+---CLIENT---
+
+# POST
+add new client
+
+->input
+
+POST http://localhost:5000/api/clients
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
+Content-Type: application/json
+
+{
+  "clientName": "12345 Systems",
+  "branchName": "South Branch",
+  "contactNumber": "1234567890",
+  "email": "contact@12345systems.com",
+  "contactPerson": "Bharat"
+}
+
+->output
+
+{
+  "client_id": "5b70d8da-eefd-4db5-985d-79e239282a12",
+  "clientName": "12345 Systems",
+  "branchName": "South Branch",
+  "contactNumber": "1234567890",
+  "email": "contact@12345systems.com",
+  "contactPerson": "Bharat",
+  "updatedAt": "2025-04-18T14:17:01.527Z",
+  "createdAt": "2025-04-18T14:17:01.527Z"
+}
+
+//output not much required for now
+
+GET http://localhost:5000/api/clients
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
+
+->result
+
+[
+  {
+    "client_id": "5b70d8da-eefd-4db5-985d-79e239282a12",
+    "clientName": "12345 Systems",
+    "branchName": "South Branch",
+    "contactNumber": "1234567890",
+    "email": "contact@12345systems.com",
+    "contactPerson": "Bharat",
+    "createdAt": "2025-04-18T14:17:01.000Z",
+    "updatedAt": "2025-04-18T14:17:01.000Z"
+  },
+  {
+    "client_id": "8bae0942-4310-4fb7-acac-c88068960e04",
+    "clientName": "123 Systems",
+    "branchName": "North Branch",
+    "contactNumber": "5551234567",
+    "email": "contact@123systems.com",
+    "contactPerson": "Charlie Davis",
+    "createdAt": "2025-04-16T09:50:41.000Z",
+    "updatedAt": "2025-04-16T09:50:41.000Z"
+  },
+  {
+    "client_id": "9c3dd424-e739-427b-989c-84f4684c40b2",
+    "clientName": "client3",
+    "branchName": "branch3",
+    "contactNumber": "4561237890",
+    "email": "client3@gmail.com",
+    "contactPerson": "ben",
+    "createdAt": "2025-03-30T15:05:42.000Z",
+    "updatedAt": "2025-03-30T15:05:42.000Z"
+  },
+  {
+    "client_id": "b69a0c07-92fe-498a-9791-9a859f9bb0b2",
+    "clientName": "client4",
+    "branchName": "branch4",
+    "contactNumber": "4568521937",
+    "email": "client4@gmail.com",
+    "contactPerson": "sam",
+    "createdAt": "2025-04-05T12:11:54.000Z",
+    "updatedAt": "2025-04-05T12:11:54.000Z"
+  }
+]
+
+# GET
+get client by ID
+
+->input
+
+GET http://localhost:5000/api/clients/5b70d8da-eefd-4db5-985d-79e239282a12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
+
+->result
+
+{
+  "client_id": "5b70d8da-eefd-4db5-985d-79e239282a12",
+  "clientName": "12345 Systems",
+  "branchName": "South Branch",
+  "contactNumber": "1234567890",
+  "email": "contact@12345systems.com",
+  "contactPerson": "Bharat",
+  "createdAt": "2025-04-18T14:17:01.000Z",
+  "updatedAt": "2025-04-18T14:17:01.000Z"
+}
+
+#PUT
+update client
+
+->input
+
+PUT http://localhost:5000/api/clients/5b70d8da-eefd-4db5-985d-79e239282a12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
+Content-Type: application/json
+
+{
+  "clientName": "12345 Systems",
+  "branchName": "South Branch",
+  "contactNumber": "1234567890",
+  "email": "contact@12345systems.com",
+  "contactPerson": "Bharat Kumar"
+}
+
+->result
+
+{
+  "client_id": "5b70d8da-eefd-4db5-985d-79e239282a12",
+  "clientName": "12345 Systems",
+  "branchName": "South Branch",
+  "contactNumber": "1234567890",
+  "email": "contact@12345systems.com",
+  "contactPerson": "Bharat Kumar",
+  "createdAt": "2025-04-18T14:17:01.000Z",
+  "updatedAt": "2025-04-18T14:38:11.981Z"
+}
+
+#DELETE
+delete a client
+
+->input
+
+DELETE http://localhost:5000/api/clients/8bae0942-4310-4fb7-acac-c88068960e04
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
+
+->result
+
+{
+  "message": "Client deleted successfully"
+}
+
+
+---PROJECT---
+
+#POST
+add new project
+
+->input
+
+POST http://localhost:5000/api/projects
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
+Content-Type: application/json
+
+{
+  "projectName": "Service Platform",
+  "client_id": "5b70d8da-eefd-4db5-985d-79e239282a12"
+}
+
+->output
+
+{
+  "id": 8,
+  "projectName": "Service Platform",
+  "client_id": "5b70d8da-eefd-4db5-985d-79e239282a12",
+  "clientName": "12345 Systems",
+  "createdAt": "2025-04-18T14:56:14.000Z",
+  "updatedAt": "2025-04-18T14:56:14.000Z",
+  "Client": {
+    "client_id": "5b70d8da-eefd-4db5-985d-79e239282a12",
+    "clientName": "12345 Systems",
+    "branchName": "South Branch",
+    "contactNumber": "1234567890",
+    "email": "contact@12345systems.com",
+    "contactPerson": "Bharat Kumar",
+    "createdAt": "2025-04-18T14:17:01.000Z",
+    "updatedAt": "2025-04-18T14:38:11.000Z"
+  }
+}
+
+#GET
+get project by client id
+
+->input
+
+GET http://localhost:5000/api/projects/client/5b70d8da-eefd-4db5-985d-79e239282a12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
+
+->result
+
+[
+  {
+    "id": 6,
+    "projectName": "project 7",
+    "client_id": "5b70d8da-eefd-4db5-985d-79e239282a12",
+    "clientName": "12345 Systems",
+    "createdAt": "2025-04-18T14:48:25.000Z",
+    "updatedAt": "2025-04-18T14:48:25.000Z",
+    "Client": {
+      "clientName": "12345 Systems"
+    }
+  },
+  {
+    "id": 8,
+    "projectName": "Service Platform",
+    "client_id": "5b70d8da-eefd-4db5-985d-79e239282a12",
+    "clientName": "12345 Systems",
+    "createdAt": "2025-04-18T14:56:14.000Z",
+    "updatedAt": "2025-04-18T14:56:14.000Z",
+    "Client": {
+      "clientName": "12345 Systems"
+    }
+  }
+]
+
+
+#GET
+get all projects
+
+->input
+
+GET http://localhost:5000/api/projects/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
+
+->output
+
+[
+  {
+    "id": 2,
+    "projectName": "project123",
+    "client_id": "50cc05d3-4bcc-4e56-be6f-cfe765cc25b1",
+    "clientName": "client1",
+    "createdAt": "2025-03-30T15:05:04.000Z",
+    "updatedAt": "2025-03-30T15:05:04.000Z",
+    "Client": {
+      "clientName": "client1"
+    }
+  },
+  {
+    "id": 5,
+    "projectName": "E-commerce Platform",
+    "client_id": "1cc927a1-4e9f-4e08-83aa-58e28b272556",
+    "clientName": "client1",
+    "createdAt": "2025-04-16T10:05:38.000Z",
+    "updatedAt": "2025-04-16T10:05:38.000Z",
+    "Client": {
+      "clientName": "client1"
+    }
+  },
+  {
+    "id": 6,
+    "projectName": "project 7",
+    "client_id": "5b70d8da-eefd-4db5-985d-79e239282a12",
+    "clientName": "12345 Systems",
+    "createdAt": "2025-04-18T14:48:25.000Z",
+    "updatedAt": "2025-04-18T14:48:25.000Z",
+    "Client": {
+      "clientName": "12345 Systems"
+    }
+  },
+  {
+    "id": 8,
+    "projectName": "Service Platform",
+    "client_id": "5b70d8da-eefd-4db5-985d-79e239282a12",
+    "clientName": "12345 Systems",
+    "createdAt": "2025-04-18T14:56:14.000Z",
+    "updatedAt": "2025-04-18T14:56:14.000Z",
+    "Client": {
+      "clientName": "12345 Systems"
+    }
+  }
+]
+
+
+---MODULE---
+
+#GET
+get all modules
+
+->input
+
+GET http://localhost:5000/api/modules
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
+
+->result
+
+[
+  {
+    "id": 1,
+    "moduleName": "moduleclient3",
+    "project_id": 3,
+    "createdAt": "2025-04-03T10:49:55.000Z",
+    "updatedAt": "2025-04-03T10:49:55.000Z",
+    "Project": {
+      "projectName": "project3"
+    }
+  },
+  {
+    "id": 3,
+    "moduleName": "new Module",
+    "project_id": 3,
+    "createdAt": "2025-04-05T13:08:38.000Z",
+    "updatedAt": "2025-04-05T13:08:38.000Z",
+    "Project": {
+      "projectName": "project3"
+    }
+  },
+  {
+    "id": 4,
+    "moduleName": "Payment Gateway",
+    "project_id": 5,
+    "createdAt": "2025-04-16T10:16:04.000Z",
+    "updatedAt": "2025-04-16T10:16:04.000Z",
+    "Project": {
+      "projectName": "E-commerce Platform"
+    }
+  }
+]
+
+#POST
+add new module
+
+->input
+
+POST http://localhost:5000/api/modules
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
+Content-Type: application/json
+
+{
+  "moduleName": "service dashboard",
+  "project_id": 8
+}
+
+->result
+
+{
+  "id": 5,
+  "project_id": 8,
+  "moduleName": "service dashboard",
+  "updatedAt": "2025-04-18T15:14:08.280Z",
+  "createdAt": "2025-04-18T15:14:08.280Z"
+}
+
+#GET
+get module by project id
+
+->input
+
+GET http://localhost:5000/api/modules/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
+
+->result
+
+[
+  {
+    "id": 5,
+    "moduleName": "service dashboard",
+    "project_id": 8,
+    "createdAt": "2025-04-18T15:14:08.000Z",
+    "updatedAt": "2025-04-18T15:14:08.000Z"
+  }
+]
+
+
+---WORK ASSIGN---
+
+#POST
+assign work to an employee
+
+->input
+
+POST http://localhost:5000/api/workassign
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
+Content-Type: application/json
+
+{
+  "userId": 22,
+  "module_id": 5,
+  "workType": "New Module",
+  "startDatetime": "2025-04-18T09:00:00.000Z",
+  "endDatetime": "2025-04-25T18:00:00.000Z",
+  "expectedCompletionDate": "2025-04-25T18:00:00.000Z",
+  "priority": "High",
+  "status": "Pending",
+  "remarks": "Implement secure payment processing with Stripe",
+  "referencePhoto": "payment_flow_diagram.jpg"
+}
+
+->result
+
+  "id": 7,
+  "userId": 22,
+  "module_id": 5,
+  "workType": "New Module",
+  "start_datetime": "2025-04-18T09:00:00.000Z",
+  "end_datetime": "2025-04-25T18:00:00.000Z",
+  "expected_completion_date": "2025-04-25T18:00:00.000Z",
+  "priority": "High",
+  "status": "Pending",
+  "remarks": "Implement secure payment processing with Stripe",
+  "reference_photo": "payment_flow_diagram.jpg",
+  "updatedAt": "2025-04-18T15:26:42.039Z",
+  "createdAt": "2025-04-18T15:26:42.039Z"
+}
+
+#GET
+get all work assigns
+
+GET http://localhost:5000/api/workassign
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
+
+->result
+
+[
+  {
+    "id": 4,
+    "userId": 19,
+    "module_id": 1,
+    "workType": "Existing Issues",
+    "start_datetime": "2025-04-02T16:15:00.000Z",
+    "end_datetime": "2025-04-18T16:15:00.000Z",
+    "priority": "High",
+    "status": "In Progress",
+    "expected_completion_date": "2025-04-17T16:15:00.000Z",
+    "remarks": "i will do my best",
+    "reference_photo": "",
+    "createdAt": "2025-04-04T16:15:29.000Z",
+    "updatedAt": "2025-04-05T11:26:23.000Z",
+    "Employee": {
+      "firstName": "indrahiro",
+      "lastName": "damenion",
+      "designation": "Software engineer"
+    },
+    "Module": {
+      "moduleName": "moduleclient3",
+      "Project": {
+        "projectName": "project3"
+      }
+    }
+  },
+  {
+    "id": 6,
+    "userId": 13,
+    "module_id": 4,
+    "workType": "New Module",
+    "start_datetime": "2025-04-18T09:00:00.000Z",
+    "end_datetime": "2025-04-25T18:00:00.000Z",
+    "priority": "High",
+    "status": "In Progress",
+    "expected_completion_date": "2025-04-25T18:00:00.000Z",
+    "remarks": "Stripe integration in process, testing payment flow",
+    "reference_photo": "payment_flow_diagram.jpg",
+    "createdAt": "2025-04-16T10:23:02.000Z",
+    "updatedAt": "2025-04-16T10:32:56.000Z",
+    "Employee": {
+      "firstName": "Shreyas12",
+      "lastName": "Kumar M",
+      "designation": "software engineer"
+    },
+    "Module": {
+      "moduleName": "Payment Gateway",
+      "Project": {
+        "projectName": "E-commerce Platform"
+      }
+    }
+  },
+  {
+    "id": 7,
+    "userId": 22,
+    "module_id": 5,
+    "workType": "New Module",
+    "start_datetime": "2025-04-18T09:00:00.000Z",
+    "end_datetime": "2025-04-25T18:00:00.000Z",
+    "priority": "High",
+    "status": "Pending",
+    "expected_completion_date": "2025-04-25T18:00:00.000Z",
+    "remarks": "Implement secure payment processing with Stripe",
+    "reference_photo": "payment_flow_diagram.jpg",
+    "createdAt": "2025-04-18T15:26:42.000Z",
+    "updatedAt": "2025-04-18T15:26:42.000Z",
+    "Employee": {
+      "firstName": "mark",
+      "lastName": "jonas",
+      "designation": "Software Developer"
+    },
+    "Module": {
+      "moduleName": "service dashboard",
+      "Project": {
+        "projectName": "Service Platform"
+      }
+    }
+  }
+]
+
+
+#PUT
+update work assignment
+
+->input
+
+PUT http://localhost:5000/api/workassign/update/7
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
+Content-Type: application/json
+
+{
+  "status": "In Progress",
+  "remarks": "complete service dashboard",
+  "priority": "High"
+}
+
+->result
+
+{
+  "message": "Work updated successfully",
+  "work": {
+    "id": 7,
+    "userId": 22,
+    "module_id": 5,
+    "workType": "New Module",
+    "start_datetime": "2025-04-18T09:00:00.000Z",
+    "end_datetime": "2025-04-25T18:00:00.000Z",
+    "priority": "High",
+    "status": "In Progress",
+    "expected_completion_date": "2025-04-25T18:00:00.000Z",
+    "remarks": "complete service dashboard",
+    "reference_photo": "payment_flow_diagram.jpg",
+    "createdAt": "2025-04-18T15:26:42.000Z",
+    "updatedAt": "2025-04-18T15:35:04.362Z"
+  }
+}
+
+
+/// for invalid token
+
+{
+  "message": "Forbidden: Invalid token"
+}
+
+/// for request without token
+
+{
+  "message": "Unauthorized: No token provided"
+}
+
+
+
+
+
+

@@ -7,30 +7,38 @@ Content-Type: application/json
   "username": "indrahiro",
   "password": "indpass"
 }
+###
 
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin1",
+  "password": "adminpass"
+}
 
 ### User API
 ###
 # Get user by ID
 GET http://localhost:5000/api/user/19
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksInVzZXJuYW1lIjoiaW5kcmFoaXJvIiwicm9sZSI6IkVtcGxveWVlIiwiaWF0IjoxNzQ0ODAwMDQ1LCJleHAiOjE3NDQ4MDM2NDV9.u3Sb-q6S-sMzvu0OaEWRtq5Q_wLCkddWdPIvC7EiVvw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksInVzZXJuYW1lIjoiaW5kcmFoaXJvIiwicm9sZSI6IkVtcGxveWVlIiwiaWF0IjoxNzQ0OTg0MzU3LCJleHAiOjE3NDQ5ODc5NTd9.WC9AvVPUb_JftX-1IuqtovoHR9DPo8LrO4VKUoDcoMo
 
 
 ### Employee API
 ###
 # Add a new employee
 POST http://localhost:5000/api/employees/add_employee
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ3OTY1ODcsImV4cCI6MTc0NDgwMDE4N30.zdT5Tsy5YnWDaoNBjJ8VLT3iP-0iz6nlQXC9c2-xRt8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
 Content-Type: application/json
 
 {
-  "username": "jane_smith",
-  "password": "securepass123",
-  "firstName": "Jane",
-  "lastName": "Smith",
+  "username": "mark_jonas",
+  "password": "pass123",
+  "firstName": "mark",
+  "lastName": "jonas",
   "gender": "Female",
   "mobileNumber": "9876543210",
-  "email": "jane.smith@example.com",
+  "email": "mark.jonas@example.com",
   "permanentAddress": "123 Main St, City",
   "contactAddress": "123 Main St, City",
   "joiningDate": "2025-01-15T00:00:00.000Z",
@@ -41,7 +49,7 @@ Content-Type: application/json
 ###
 # Get all employees
 GET http://localhost:5000/api/employees
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ3OTY1ODcsImV4cCI6MTc0NDgwMDE4N30.zdT5Tsy5YnWDaoNBjJ8VLT3iP-0iz6nlQXC9c2-xRt8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
 
 
 ### Client API
@@ -51,88 +59,100 @@ POST http://localhost:5000/api/clients
 Content-Type: application/json
 
 {
-  "clientName": "123 Systems",
-  "branchName": "North Branch",
-  "contactNumber": "5551234567",
-  "email": "contact@123systems.com",
-  "contactPerson": "Charlie Davis"
+  "clientName": "12345 Systems",
+  "branchName": "South Branch",
+  "contactNumber": "1234567890",
+  "email": "contact@12345systems.com",
+  "contactPerson": "Bharat"
 }
 
 ###
 # Get all clients
 GET http://localhost:5000/api/clients
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
 
 ###
 # Get client by ID 
-GET http://localhost:5000/api/clients/1ca0cfd3-ec31-484b-82d9-351dd7025211
+GET http://localhost:5000/api/clients/5b70d8da-eefd-4db5-985d-79e239282a12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
 
 ###
 # Update a client
-PUT http://localhost:5000/api/clients/1ca0cfd3-ec31-484b-82d9-351dd7025211
+PUT http://localhost:5000/api/clients/5b70d8da-eefd-4db5-985d-79e239282a12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
 Content-Type: application/json
 
 {
-  "clientName": "client2",
-  "branchName": "branch2",
-  "contactNumber": "9876543210",
-  "email": "client2@gmail.com",
-  "contactPerson": "bob"
+  "clientName": "12345 Systems",
+  "branchName": "South Branch",
+  "contactNumber": "1234567890",
+  "email": "contact@12345systems.com",
+  "contactPerson": "Bharat Kumar"
 }
 
 ###
 # Delete a client
-DELETE http://localhost:5000/api/clients/1ca0cfd3-ec31-484b-82d9-351dd7025211
+DELETE http://localhost:5000/api/clients/8bae0942-4310-4fb7-acac-c88068960e04
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
 
 
 ### Project API
 ###
 # Add a new project
 POST http://localhost:5000/api/projects
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODQ2OTcsImV4cCI6MTc0NDk4ODI5N30.KGYH__RVHyvBkB2lsNfvqF_81kJlgzQsdHEKcxH81a0
 Content-Type: application/json
 
 {
-  "projectName": "E-commerce Platform",
-  "client_id": "1cc927a1-4e9f-4e08-83aa-58e28b272556"
+  "projectName": "Service Platform",
+  "client_id": "5b70d8da-eefd-4db5-985d-79e239282a12"
 }
 
 ###
 # Get projects by client ID
-GET http://localhost:5000/api/projects/client/1cc927a1-4e9f-4e08-83aa-58e28b272556
+GET http://localhost:5000/api/projects/client/5b70d8da-eefd-4db5-985d-79e239282a12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
 
 ###
 # Get All projects
 GET http://localhost:5000/api/projects/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
 
 
 ### Module API
 ###
 # Get all modules
 GET http://localhost:5000/api/modules
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
+
 
 ###
 # Add a new module (use a valid project_id)
 POST http://localhost:5000/api/modules
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
 Content-Type: application/json
 
 {
-  "moduleName": "Payment Gateway",
-  "project_id": 5
+  "moduleName": "service dashboard",
+  "project_id": 8
 }
 
 ###
 # Get modules by project ID
-GET http://localhost:5000/api/modules/5
+GET http://localhost:5000/api/modules/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
 
 
 ### Work Assignment API
 ###
 # Assign work to an employee
 POST http://localhost:5000/api/workassign
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
 Content-Type: application/json
 
 {
-  "userId": 13,
-  "module_id": 4,
+  "userId": 22,
+  "module_id": 5,
   "workType": "New Module",
   "startDatetime": "2025-04-18T09:00:00.000Z",
   "endDatetime": "2025-04-25T18:00:00.000Z",
@@ -146,14 +166,22 @@ Content-Type: application/json
 ###
 # Get all work assignments
 GET http://localhost:5000/api/workassign
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
+
+
+###
+GET https://gspos.in/SalesMaster/index.php/hrmanag_data/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDQ5ODgzNjUsImV4cCI6MTc0NDk5MTk2NX0.PGB1vj6CxYUUKbcztucLTtzGFcQgN3ql5k_WsebAJsw
+
+
 
 ###
 # Update work assignment
-PUT http://localhost:5000/api/workassign/update/6
+PUT http://localhost:5000/api/workassign/update/7
 Content-Type: application/json
 
 {
   "status": "In Progress",
-  "remarks": "Stripe integration in process, testing payment flow",
+  "remarks": "complete service dashboard",
   "priority": "High"
 }
