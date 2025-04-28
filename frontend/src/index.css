@@ -29,9 +29,9 @@ html {
 
 /* Default Light Theme */
 :root {
-  --bg-color: #f3f4f6; /* Tailwind bg-gray-100 */
+  --bg-color: #DBDBDBFF; /* Tailwind bg-gray-100 */
   --text-color: #1f2937; /* Tailwind text-gray-900 */
-  --form-bg: #DEDEDE54; /* Tailwind bg-white */
+  --form-bg: #DEDEDE5A; /* Tailwind bg-white */
   --input-bg: #d8d8d8f7; /* Tailwind input background */
   --input-text: #000000;
   --button-bg: #204580ff; /* Tailwind bg-blue-500 */
@@ -63,6 +63,9 @@ html {
 /* Smooth transitions */
 * {
   transition: background-color 0.3s, color 0.3s;
+}
+body{
+  background-color: var(--background-gradient);
 }
 
 .input-style {

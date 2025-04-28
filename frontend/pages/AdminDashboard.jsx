@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useTheme from "../hooks/useTheme"; // Custom hook for theme management
+import LeftSidebar from "../components/LeftSideBar";
+import Header from "../components/Header";
+
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 const DashboardCard = ({ title, route }) => {
@@ -25,6 +28,7 @@ const AdminDashboard = () => {
   const [username, setUsername] = useState("");
   const [projects, setProjects] = useState([]);
   const { theme, toggleTheme } = useTheme();
+
 
   const token = localStorage.getItem("token");
 
@@ -87,7 +91,7 @@ const AdminDashboard = () => {
       const res = await fetch(`${BASE_URL}api/workassign`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
       });
       const data = await res.json();
@@ -102,7 +106,7 @@ const AdminDashboard = () => {
       const res = await fetch(`${BASE_URL}api/projects`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -137,16 +141,17 @@ const AdminDashboard = () => {
   }, []);
 
   return (
+
+    <div className="relative">
+    {/* Add the sidebar component */}
+    <Header/>
+
     <div
-      className="min-h-screen p-8 transition-all duration-300 text-[var(--text-color)]"
+      className="min-h-screen pt-20 p-8 transition-all duration-300 text-[var(--text-color)]"
       style={{ background: "var(--background-gradient)" }}
     >
-      <button
-        onClick={toggleTheme}
-        className="absolute top-4 right-4 p-2 rounded-full bg-[var(--theme-bg)] hover:bg-opacity-80 transition active:scale-95 text-white"
-      >
-        {theme === "light" ? "🌙" : "☀️"}
-      </button>
+
+<LeftSidebar />
 
       <h1 className="text-4xl font-bold mb-6 text-center text-[var(--text-color)]">
         Hello {username} !!!
@@ -269,6 +274,8 @@ const AdminDashboard = () => {
         </div>
       </section>
     </div>
+    </div>
+
   );
 };
 

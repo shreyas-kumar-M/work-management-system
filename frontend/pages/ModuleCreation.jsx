@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useTheme from "../hooks/useTheme";
+import LeftSidebar from "../components/LeftSideBar";
+import Header from "../components/Header";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -115,17 +117,17 @@ const ModuleCreation = () => {
   };
 
   return (
+
+    <div className="relative">
+    {/* Add the sidebar component */}
+    <Header/>
     <div
       className="p-6 h-screen overflow-auto flex flex-col items-center justify-center"
       style={{ background: "var(--background-gradient)" }}
     >
-      {/* Theme Toggle Button */}
-      <button
-        onClick={toggleTheme}
-        className="absolute text-white top-4 right-4 p-2 rounded-full bg-[var(--theme-bg)] hover:bg-opacity-80 transition-[transform,background-color] active:scale-95 z-10"
-      >
-        {theme === "light" ? "🌙" : "☀️"}
-      </button>
+
+<LeftSidebar />
+
 
       {/* Module Creation Form */}
       <form
@@ -189,6 +191,7 @@ const ModuleCreation = () => {
           Add Module
         </button>
       </form>
+    </div>
     </div>
   );
 };

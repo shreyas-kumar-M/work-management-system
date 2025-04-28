@@ -22,7 +22,7 @@ const EmployeeDashboard = () => {
 
     const fetchAssignedWork = async () => {
       try {
-        const res = await axios.get('${BASE_URL}api/workassign', {
+        const res = await axios.get(`${BASE_URL}api/workassign`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

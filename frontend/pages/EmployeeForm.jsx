@@ -1,5 +1,7 @@
 import { useState } from "react";
 import useTheme from "../hooks/useTheme"; // Custom hook for theme management
+import LeftSidebar from "../components/LeftSideBar";
+import Header from "../components/Header";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -86,18 +88,19 @@ const EmployeeForm = () => {
     }
   };
   return (
+
+    <div className="relative">
+    {/* Add the sidebar component */}
+    <Header/>
     <div>
+    <LeftSidebar />
+
       <div
-        className="flex justify-center items-center min-h-screen text-[var(--text-color)]"
+        className="flex pt-20 justify-center items-center min-h-screen text-[var(--text-color)]"
         style={{ background: "var(--background-gradient)" }}
       >
-        <button
-          onClick={toggleTheme}
-          className="absolute text-white top-4 right-4 p-2 rounded-full bg-[var(--theme-bg)] hover:bg-opacity-80 transition-[transform,background-color] active:scale-95 z-10"
-        >
-          {theme === "light" ? "🌙" : "☀️"}
-        </button>
-        <div className="bg-[var(--form-bg)] backdrop-blur-2xl p-6 rounded-lg shadow-lg w-full max-w-2xl">
+
+        <div className="  p-6 rounded-lg  w-full max-w-2xl">
           <h2 className="text-2xl font-bold mb-4 text-center">
             Create Employee
           </h2>
@@ -252,6 +255,7 @@ const EmployeeForm = () => {
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 };

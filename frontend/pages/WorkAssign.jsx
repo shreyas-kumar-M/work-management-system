@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useTheme from "../hooks/useTheme";
+import LeftSidebar from "../components/LeftSideBar";
+import Header from "../components/Header";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -118,22 +120,20 @@ const WorkAssign = () => {
   };
 
   return (
+    <div className="relative">
+    {/* Add the sidebar component */}
+    <Header/>
+    <LeftSidebar />
     <div
-      className="p-4 py-4 h-screen overflow-auto flex flex-col items-center justify-center pt-16"
+      className="p-4 pt-46 py-4 h-screen overflow-auto flex flex-col items-center justify-center"
       style={{ background: "var(--background-gradient)" }}
     >
-      {/* Theme Toggle Button */}
-      <button
-        onClick={toggleTheme}
-        className="absolute text-white top-4 right-4 p-2 rounded-full bg-[var(--theme-bg)] hover:bg-opacity-80 transition-[transform,background-color] active:scale-95 z-10"
-      >
-        {theme === "light" ? "🌙" : "☀️"}
-      </button>
+
 
       {/* Work Assignment Form */}
       <form
         onSubmit={handleSubmit}
-        className="p-4 mt-86 backdrop-blur-2xl rounded-lg text-[var(--text-color)] bg-[var(--form-bg)] ring-inset ring-1 ring-[var(--text-color)]/20 shadow-md space-y-4 sm:mx-12"
+        className="p-4 mt-46  text-[var(--text-color)]  space-y-4 sm:mx-12"
       >
         <h2 className="text-xl font-semibold mb-4 text-center">Assign Work</h2>
 
@@ -288,6 +288,7 @@ const WorkAssign = () => {
           Assign Work
         </button>
       </form>
+    </div>
     </div>
   );
 };

@@ -6,15 +6,15 @@ import {
 } from "react-router-dom";
 
 import AdminDashboard from "../pages/AdminDashboard";
+import Client from "../pages/Client";
 import EmployeeDashboard from "../pages/EmployeeDashboard";
+import EmployeeForm from "../pages/EmployeeForm";
 import Login from "../pages/Login";
 import ManagerDashboard from "../pages/ManagerDashboard";
-import ProtectedRoute from "./ProtectedRoute";
-import EmployeeForm from "../pages/EmployeeForm"
-import Client from "../pages/Client";
-import Project from "../pages/ProjectCreation";
 import ModuleCreation from "../pages/ModuleCreation";
+import Project from "../pages/ProjectCreation";
 import WorkAssign from "../pages/WorkAssign";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
@@ -38,24 +38,24 @@ function App() {
           <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
         </Route>
         {/* ✅ Employee creation */}
-        <Route element={<ProtectedRoute allowedRoles={["Manager","Admin"]} />}>
-        <Route path={"/employee-creation"} element={<EmployeeForm/>}></Route>
+        <Route element={<ProtectedRoute allowedRoles={["Manager", "Admin"]} />}>
+          <Route path={"/employee-creation"} element={<EmployeeForm />}></Route>
         </Route>
         {/* ✅ client creation */}
-        <Route element={<ProtectedRoute allowedRoles={["Manager","Admin"]} />}>
-        <Route path={"/client"} element={<Client/>}></Route>
+        <Route element={<ProtectedRoute allowedRoles={["Manager", "Admin"]} />}>
+          <Route path={"/client"} element={<Client />}></Route>
         </Route>
         {/* ✅ project creation */}
-        <Route element={<ProtectedRoute allowedRoles={["Manager","Admin"]} />}>
-        <Route path={"/project-creation"} element={<Project/>}></Route>
+        <Route element={<ProtectedRoute allowedRoles={["Manager", "Admin"]} />}>
+          <Route path={"/project-creation"} element={<Project />}></Route>
         </Route>
         {/* ✅ module creation */}
-        <Route element={<ProtectedRoute allowedRoles={["Manager","Admin"]} />}>
-        <Route path={"/module-creation"} element={<ModuleCreation/>}></Route>
+        <Route element={<ProtectedRoute allowedRoles={["Manager", "Admin"]} />}>
+          <Route path={"/module-creation"} element={<ModuleCreation />}></Route>
         </Route>
         {/* ✅ module creation */}
-        <Route element={<ProtectedRoute allowedRoles={["Manager","Admin"]} />}>
-        <Route path={"/workAssign"} element={<WorkAssign/>}></Route>
+        <Route element={<ProtectedRoute allowedRoles={["Manager", "Admin"]} />}>
+          <Route path={"/workAssign"} element={<WorkAssign />}></Route>
         </Route>
       </Routes>
     </Router>

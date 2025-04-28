@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import useTheme from "../hooks/useTheme"; // Custom hook for theme management
+import useTheme from "../hooks/useTheme";
+import LeftSidebar from "../components/LeftSideBar";
+import Header from "../components/Header";
 
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -87,17 +89,15 @@ const ProjectCreation = () => {
   };
 
   return (
+    <div className="relative">
+    {/* Add the sidebar component */}
+    <Header/>
+    <LeftSidebar />
+
     <div
-      className="p-6 h-screen overflow-auto"
+      className="p-6 pt-20 h-screen overflow-auto"
       style={{ background: "var(--background-gradient)" }}
     >
-      {/* Theme Toggle Button */}
-      <button
-        onClick={toggleTheme}
-        className="absolute text-white top-4 right-4 p-2 rounded-full bg-[var(--theme-bg)] hover:bg-opacity-80 transition-[transform,background-color] active:scale-95 z-10"
-      >
-        {theme === "light" ? "🌙" : "☀️"}
-      </button>
 
       <h2 className="text-xl font-semibold text-[var(--text-color)] mb-4 text-center">
         Project Management
@@ -185,6 +185,7 @@ const ProjectCreation = () => {
           </div>
         </>
       )}
+    </div>
     </div>
   );
 };
